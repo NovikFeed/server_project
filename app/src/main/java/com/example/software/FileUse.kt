@@ -75,6 +75,7 @@ class FileUse : AppCompatActivity() {
         btnBack = findViewById(R.id.imageButton)
         btnUploadFile = findViewById(R.id.button3)
         progressBar = findViewById(R.id.progressBar3)
+        btnDownloadFile = findViewById(R.id.button4)
         btnChoiseFile.setOnClickListener{
             startActivityFor()
         }
