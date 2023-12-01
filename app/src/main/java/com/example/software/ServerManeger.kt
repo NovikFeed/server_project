@@ -63,9 +63,18 @@ object ServerManeger{
             e.printStackTrace()
         }
     }
-    fun uploadFile(file: InputStream, fileName:String){
+    fun uploadFile(file: InputStream, fileName:String, typeFile : String){
         chanel?.cd("/uploads/")
-        chanel?.put(file, fileName+".jpg")
+        var testName = fileName.substring(0,6)
+        Log.i("clas",testName)
+        if((testName == "video:")||(testName == "audio:")||(testName=="image:")){
+            testName = fileName.substringAfter(":")
+            chanel?.put(file, "$testName.$typeFile")
+        }
+        else{
+            chanel?.put(file, "$fileName.$typeFile")
+        }
+
 
     }
 

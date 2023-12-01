@@ -1,6 +1,7 @@
 package com.example.software
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import kotlinx.coroutines.*
@@ -13,6 +14,7 @@ import android.os.Looper
 import android.preference.PreferenceActivity.Header
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ProgressBar
@@ -46,16 +48,19 @@ class FileUse : AppCompatActivity() {
             val path = data?.data
             if(path != null){
                 val tmp = createInputStream(this, path)
-                val tmp2 = contentResolver.getType(path)
-                fileName = File(path.getPath()).name
+                val mime = MimeTypeMap.getSingleton()
+                var tmp3 = mime.getExtensionFromMimeType(this.contentResolver.getType(path))
+                fileName = File(path.getPath()).nameWithoutExtension
                 enterFileTexxt.setText(fileName)
                 enterFileTexxt.visibility = View.VISIBLE
                 preficsEnterFile.visibility = View.VISIBLE
-                Toast.makeText(this, tmp2, Toast.LENGTH_LONG).show()
-                if((tmp != null)&&(tmp2 != null)){
+                if((tmp != null)){
                     streamFile = tmp
-                    typeFile = tmp2
                 }
+                if(tmp3 != null){
+                    typeFile = tmp3
+                }
+
             }
         }
     }
@@ -84,7 +89,7 @@ class FileUse : AppCompatActivity() {
             if((isInternetAvailable())&&(ServerManeger.tryConnect())){
             statusBar(true)
             thread {
-                ServerManeger.uploadFile(streamFile, fileName)
+                ServerManeger.uploadFile(streamFile, fileName, typeFile)
 
                 Handler(Looper.getMainLooper()).post {
                     Toast.makeText(
@@ -132,4 +137,5 @@ class FileUse : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-}
+
+    }
