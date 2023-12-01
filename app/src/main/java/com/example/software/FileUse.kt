@@ -83,7 +83,8 @@ class FileUse : AppCompatActivity() {
             statusBar(true)
 //            Toast.makeText(this, fileName, Toast.LENGTH_LONG).show()
             thread {
-//                val start: Long = System.currentTimeMillis()
+//                Toast.makeText(this, "2134", Toast.LENGTH_LONG).show()
+//                val start: Long = System.currentTimeMillis()1
                 ServerManeger.uploadFile(streamFile, fileName)
 //                val endtime = System.currentTimeMillis()
 //                Log.i("TIME", (endtime-start).toString())
@@ -181,4 +182,5 @@ class FileUse : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+    // gey bro
 }
