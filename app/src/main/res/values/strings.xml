@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">software</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="sing_in">Здійсніть підключення до сервера</string>
+    <string name="enter_server_adres">Введіть IP сервера</string>
+    <string name="enter_server_login">Введіть логін</string>
+    <string name="enter_server_pass">Введіть пароль</string>
+    <string name="button_text_singin">Підключитись</string>
+    <string name="enter_server_port">Введіть порт</string>
+    <string name="save_data">Запамʼятати данні</string>
+    <string name="name">SECURESYNC</string>
+    <string name="upload">Відправити</string>
+    <string name="download">Мої файли</string>
+    <string name="error">Виникла помилка спілкування з сервером.Вас буде повернуто до вікна підключення </string>
+    <string name="chose_file">Обратии файл</string>
+    <string name="enter_ffile">Ви обрали: </string>
+</resources>
