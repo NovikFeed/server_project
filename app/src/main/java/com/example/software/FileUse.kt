@@ -31,9 +31,9 @@ import kotlin.concurrent.thread
 
 class FileUse : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
-    lateinit var pathFile :String
     lateinit var streamFile : InputStream
     lateinit var fileName: String
+    lateinit var typeFile:String
     lateinit var btnChoiseFile :Button
     lateinit var btnUploadFile : Button
     lateinit var btnDownloadFile : Button
@@ -46,14 +46,15 @@ class FileUse : AppCompatActivity() {
             val path = data?.data
             if(path != null){
                 val tmp = createInputStream(this, path)
+                val tmp2 = contentResolver.getType(path)
                 fileName = File(path.getPath()).name
                 enterFileTexxt.setText(fileName)
                 enterFileTexxt.visibility = View.VISIBLE
                 preficsEnterFile.visibility = View.VISIBLE
-                val tmp2 = path.getPath()
+                Toast.makeText(this, tmp2, Toast.LENGTH_LONG).show()
                 if((tmp != null)&&(tmp2 != null)){
                     streamFile = tmp
-                    pathFile = tmp2
+                    typeFile = tmp2
                 }
             }
         }
@@ -82,14 +83,8 @@ class FileUse : AppCompatActivity() {
         btnUploadFile.setOnClickListener{
             if((isInternetAvailable())&&(ServerManeger.tryConnect())){
             statusBar(true)
-//            Toast.makeText(this, fileName, Toast.LENGTH_LONG).show()
             thread {
-//                Toast.makeText(this, "2134", Toast.LENGTH_LONG).show()
-//                val start: Long = System.currentTimeMillis()1
                 ServerManeger.uploadFile(streamFile, fileName)
-//                val endtime = System.currentTimeMillis()
-//                Log.i("TIME", (endtime-start).toString())
-
 
                 Handler(Looper.getMainLooper()).post {
                     Toast.makeText(
@@ -108,52 +103,6 @@ class FileUse : AppCompatActivity() {
         }
         btnBack.setOnClickListener{backToLogin()}
     }
-//    fun connectToServer(data:ArrayList<String>){
-//        val host = data[0]
-//        val user = data[1]
-//        val pass = data[2]
-//        val port = data[3]
-//        val jsch = JSch()
-//        val btnPut = findViewById<Button>(R.id.button2)
-//        val session = jsch.getSession(user, host, port.toInt())
-//        session.setConfig("StrictHostKeyChecking", "no");
-//        session.setPassword(pass)
-//        if(isInternetAvailable()) {
-//            thread {
-//                try {
-//                    session.connect()
-//                    val chanel = session.openChannel("sftp") as ChannelSftp
-//                    chanel.connect()
-//                } catch (e: JSchException) {
-//                    val eror = findViewById<TextView>(R.id.textView3)
-//                    val job = Thread {
-//                        Handler(Looper.getMainLooper()).post{eror.visibility = View.VISIBLE}
-//                        Thread.sleep(5000)
-//                        Handler(Looper.getMainLooper()).post{val intent = Intent(this, LoginActivity::class.java)
-//                        startActivity(intent)
-//                            finish()}}
-//                    job.start()
-//                    job.join()
-//                }
-//            }
-//        }
-//
-//    }
-//    fun getDataFromBundle():ArrayList<String>{
-//        val data:ArrayList<String> = ArrayList()
-//        val bundle = intent.extras
-//        val host : String? = bundle?.getString("host")
-//        val user = bundle?.getString("username")
-//        val pass = bundle?.getString("password")
-//        val port = bundle?.getString("port")
-//        if((host != null)&&(user != null)&&(pass != null)&&(port != null)) {
-//            data.add(host)
-//            data.add(user)
-//            data.add(pass)
-//            data.add(port)
-//        }
-//        return data
-//    }
      fun isInternetAvailable(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
@@ -183,5 +132,4 @@ class FileUse : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-    ///ДЕН ТОП
 }

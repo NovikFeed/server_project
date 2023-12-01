@@ -22,8 +22,6 @@ import com.jcraft.jsch.ChannelSftp
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.JSchException
 import com.jcraft.jsch.Session
-import net.schmizz.sshj.SSHClient
-import net.schmizz.sshj.transport.verification.PromiscuousVerifier
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPClient
 import java.security.interfaces.EdECKey
@@ -40,7 +38,7 @@ import kotlin.concurrent.thread
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        shared = getSharedPreferences("authData", Context.MODE_PRIVATE )
+        shared = getSharedPreferences("authData", MODE_PRIVATE )
         val editorShared = shared.edit()
         btnStart = findViewById(R.id.button)
         serverField = findViewById(R.id.editTextTextEmailAddress)
@@ -152,7 +150,7 @@ import kotlin.concurrent.thread
     }
     }
     private fun isInternetAvailable(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
